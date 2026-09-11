@@ -14,7 +14,6 @@ depends=(
     'python-pillow'
     'python-mss'
     'python-dotenv'
-    'python-plyer'
 )
 makedepends=(
     'git'
@@ -24,6 +23,7 @@ makedepends=(
     'python-hatchling'
 )
 optdepends=(
+    'python-plyer: notificação de desktop quando notify-send não está disponível'
     'claude-code: backend claude_cli (padrão, grátis, usa sua assinatura)'
     'python-anthropic: backend anthropic (API paga da Anthropic)'
     'ollama: backend ollama (IA local, offline)'
