@@ -1,0 +1,52 @@
+# Maintainer: Felipe Ratto <felipe.ratto@internit.net.br>
+pkgname=wuptracker-git
+pkgver=0.1.0.r2.g4da6102
+pkgrel=1
+pkgdesc="Captura screenshots de uma sessão de trabalho e gera writeups com IA (versão git)"
+arch=('any')
+url="https://github.com/rattinho/wuptracker"
+license=('MIT')
+provides=('wuptracker')
+conflicts=('wuptracker')
+depends=(
+    'python'
+    'python-pynput'
+    'python-pillow'
+    'python-mss'
+    'python-dotenv'
+    'python-plyer'
+)
+makedepends=(
+    'git'
+    'python-build'
+    'python-installer'
+    'python-wheel'
+    'python-hatchling'
+)
+optdepends=(
+    'claude-code: backend claude_cli (padrão, grátis, usa sua assinatura)'
+    'python-anthropic: backend anthropic (API paga da Anthropic)'
+    'ollama: backend ollama (IA local, offline)'
+)
+source=("$pkgname::git+https://github.com/rattinho/wuptracker.git")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd "$pkgname"
+    if git describe --long --tags >/dev/null 2>&1; then
+        git describe --long --tags | sed -E 's/^v//; s/-([0-9]+)-g/.r\1.g/'
+    else
+        printf "0.0.0.r%s.g%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    fi
+}
+
+build() {
+    cd "$pkgname"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "$pkgname"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

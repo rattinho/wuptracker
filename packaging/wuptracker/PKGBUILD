@@ -1,0 +1,40 @@
+# Maintainer: Felipe Ratto <felipe.ratto@internit.net.br>
+pkgname=wuptracker
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Captura screenshots de uma sessão de trabalho e gera writeups com IA"
+arch=('any')
+url="https://github.com/rattinho/wuptracker"
+license=('MIT')
+depends=(
+    'python'
+    'python-pynput'
+    'python-pillow'
+    'python-mss'
+    'python-dotenv'
+    'python-plyer'
+)
+makedepends=(
+    'python-build'
+    'python-installer'
+    'python-wheel'
+    'python-hatchling'
+)
+optdepends=(
+    'claude-code: backend claude_cli (padrão, grátis, usa sua assinatura)'
+    'python-anthropic: backend anthropic (API paga da Anthropic)'
+    'ollama: backend ollama (IA local, offline)'
+)
+source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/$pkgname/$pkgname-$pkgver.tar.gz")
+sha256sums=('5c57c00d1920e43f2e26d9ffabfe9f2b7b1985aaf0fbf05202cd40c2f86e9582')
+
+build() {
+    cd "$pkgname-$pkgver"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

@@ -1,0 +1,24 @@
+pkgbase = wuptracker
+	pkgdesc = Captura screenshots de uma sessão de trabalho e gera writeups com IA
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://github.com/rattinho/wuptracker
+	arch = any
+	license = MIT
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-hatchling
+	depends = python
+	depends = python-pynput
+	depends = python-pillow
+	depends = python-mss
+	depends = python-dotenv
+	depends = python-plyer
+	optdepends = claude-code: backend claude_cli (padrão, grátis, usa sua assinatura)
+	optdepends = python-anthropic: backend anthropic (API paga da Anthropic)
+	optdepends = ollama: backend ollama (IA local, offline)
+	source = https://files.pythonhosted.org/packages/source/w/wuptracker/wuptracker-0.1.0.tar.gz
+	sha256sums = 5c57c00d1920e43f2e26d9ffabfe9f2b7b1985aaf0fbf05202cd40c2f86e9582
+
+pkgname = wuptracker

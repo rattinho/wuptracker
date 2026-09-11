@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# saída local (a config/sessões de verdade agora vivem em ~/.config e
+# ~/.local/share/wuptracker; isso aqui é só resíduo de dev/testes na raiz)
+writeups/
+sessions/
+.env
+config.local.json
+dist/
